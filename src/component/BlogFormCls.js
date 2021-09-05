@@ -15,42 +15,67 @@ export class BlogForm extends React.Component {
     componentDidMount() {
         const list = localStorage.getItem('blog');
         const updatedBlogList = JSON.parse(list)
-        this.setState(state => ({
-            blogList: state.blogList.concat(updatedBlogList)
-        }))
+        if (updatedBlogList)
+            this.setState(state => ({
+                blogList: state.blogList.concat(updatedBlogList)
+            }))
     }
 
     handleSubmit(e) {
         e.preventDefault();
         let blogData
+        var blogAlreadySaved = false;
         const temp = localStorage.getItem('blog');
         const tempList = JSON.parse(temp);
-        for (let item of tempList) {
-            if (item.id === this.blogId.current.value) {
-                blogData = {
-                    id: this.blogId.current.value,
-                    title: this.blogTitle.current.value,
-                    description: this.blogDesc.current.value
-                };
-            }
-        }
+        console.log("length " + tempList.length);
+        if (tempList) {
+            for (let item of tempList) {
+                console.log(item);
+                if (item.id === this.blogId.current.value) {
+                    
+                    blogAlreadySaved = true;
+                    
+                    item.title = this.blogTitle.current.value
+                    item.description = this.blogDesc.current.value
+                    
+                }
+                
 
-        if (blogData) {
+            }
+
+            if(!blogAlreadySaved){
+                blogData = {
+                        id: this.blogId.current.value,
+                        title: this.blogTitle.current.value,
+                        description: this.blogDesc.current.value
+                    };
+                tempList.push(blogData)
+            }
+
+            this.setState(state => {
+
+                localStorage.setItem("blog", JSON.stringify(tempList));
+                return ({
+                    blogList: tempList
+                })
+            })
+
+        }
+        else {
             blogData = {
                 id: this.blogId.current.value,
                 title: this.blogTitle.current.value,
                 description: this.blogDesc.current.value
             };
+            this.setState(state => {
+                const list = state.blogList.concat(blogData)
+                localStorage.setItem("blog", JSON.stringify(list));
+                return ({
+                    blogList: state.blogList.concat(blogData)
+                })
+            }
+            )
         }
-        this.setState(state => {
-            const list = state.blogList.concat(blogData)
-            localStorage.setItem("blog", JSON.stringify(list));
-            return ({
-                blogList: state.blogList.concat(blogData)
-            })
-        }
-        )
-
         return;
     }
 
