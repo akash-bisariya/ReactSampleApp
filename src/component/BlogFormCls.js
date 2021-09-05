@@ -23,32 +23,30 @@ export class BlogForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        let blogData
         var blogAlreadySaved = false;
         const temp = localStorage.getItem('blog');
         const tempList = JSON.parse(temp);
-        console.log("length " + tempList.length);
+
         if (tempList) {
             for (let item of tempList) {
                 console.log(item);
                 if (item.id === this.blogId.current.value) {
-                    
+
                     blogAlreadySaved = true;
-                    
+
                     item.title = this.blogTitle.current.value
                     item.description = this.blogDesc.current.value
-                    
+
                 }
-                
 
             }
 
-            if(!blogAlreadySaved){
-                blogData = {
-                        id: this.blogId.current.value,
-                        title: this.blogTitle.current.value,
-                        description: this.blogDesc.current.value
-                    };
+            if (!blogAlreadySaved) {
+                let blogData = {
+                    id: this.blogId.current.value,
+                    title: this.blogTitle.current.value,
+                    description: this.blogDesc.current.value
+                };
                 tempList.push(blogData)
             }
 
@@ -62,7 +60,7 @@ export class BlogForm extends React.Component {
 
         }
         else {
-            blogData = {
+            let blogData = {
                 id: this.blogId.current.value,
                 title: this.blogTitle.current.value,
                 description: this.blogDesc.current.value
