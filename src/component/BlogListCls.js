@@ -7,11 +7,11 @@ export class BlogListCls extends React.Component {
         if (this.props.items.length > 0) {
             return (
                 <div>
-                    <span style={{ color: "yellow", fontSize: '15px' }} >Total Blog Count : {this.props.items.length}</span>
+                    <span style={{ color: "red", fontSize: '15px' }} >Blogs Count : {this.props.items.length}</span>
                     {
                         this.props.items && <ul>
                             {this.props.items.reverse().map(item => (
-                                <li style={{ color: "green" }} key={item.id}>{item.id}->{item.title}->{item.description}</li>
+                                <li style={{ color: "yellow" }} key={item.id}>{item.id}->{item.title}->{item.description}</li>
                             ))}
                         </ul>
                     }
@@ -19,21 +19,8 @@ export class BlogListCls extends React.Component {
             )
         }
         else {
-            console.log(this.props.items)
-            return <div>Blog List Is Empty</div>
+            return <div>No Blogs Available. Please Add First.</div>
         }
-
-        // return (
-        //     <div>
-        //         {
-        //              this.props.items && <ul>
-        //                 { this.props.items.map(item => (
-        //                  <li key={item.title}>{item.description}</li>
-        //                  ))}
-        //             </ul> 
-        //         }
-        //     </div>
-        // );
     }
 
 }

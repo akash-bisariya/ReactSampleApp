@@ -29,11 +29,9 @@ export class BlogForm extends React.Component {
 
         if (tempList) {
             for (let item of tempList) {
-                console.log(item);
                 if (item.id === this.blogId.current.value) {
 
                     blogAlreadySaved = true;
-
                     item.title = this.blogTitle.current.value
                     item.description = this.blogDesc.current.value
 
@@ -99,8 +97,6 @@ export class BlogForm extends React.Component {
                         <input type="text" ref={this.blogDesc} style={{ fontSize: '30px', paddingLeft: '10px', margin: '10px' }}></input>
                         </label>
                     </div>
-
-
 
                     <button style={{ fontSize: '30px', margin: '10px' }}>
                         Submit Blog
